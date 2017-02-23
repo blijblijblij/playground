@@ -1,6 +1,6 @@
 FROM ruby:2.3.1-onbuild
 
-MAINTAINER Rogier Wessel <rwessel@reelmetrics.com>
+MAINTAINER Rogier Wessel <rhwessel@xs4all.nl>
 
 # throw errors if Gemfile has been modified since Gemfile.lock
 RUN bundle config --global frozen 1
