@@ -1,0 +1,6 @@
+app:
+  build: .
+  environment:
+    PLOINK: 'prietpriet'
+  volumes:
+    - "./environment.rb:/environment.rb"
