@@ -16,5 +16,7 @@ webspoon:
   image: hiromuhota/webspoon:latest-full
   expose:
     - "8080"
+  ports:
+    - "8080:8080"  
   volumes:
     - "./repository:/repository/"
