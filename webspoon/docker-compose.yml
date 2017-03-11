@@ -1,0 +1,20 @@
+proxy:
+  image: nginx
+  restart: always
+  volumes:
+    - "./nginx.conf:/etc/nginx/nginx.conf:ro"
+    - "./.htpasswd:/etc/nginx/passwords:ro"
+  expose:
+    - "80"
+  ports:
+    - "80:80"
+  links:
+    - webspoon
+
+webspoon:
+  restart: always
+  image: hiromuhota/webspoon:latest-full
+  expose:
+    - "8080"
+  volumes:
+    - "./repository:/repository/"
