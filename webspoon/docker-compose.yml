@@ -1,22 +1,36 @@
-proxy:
-  image: nginx
-  restart: always
-  volumes:
-    - "./nginx.conf:/etc/nginx/nginx.conf:ro"
-    - "./.htpasswd:/etc/nginx/passwords:ro"
-  expose:
-    - "80"
+haproxy:
+  image: interaction/haproxy:master
+  links:
+    - letsencrypt
+    - webspoon
+  environment:
+    - HTTP_BASIC_AUTH=webspoon:kettlerocks
+    - FORCE_SSL=yes
   ports:
     - "80:80"
-  links:
-    - webspoon
+    - "443:443"
+  # roles:
+  #   - global
+  volumes_from:
+    - letsencrypt
+
+letsencrypt:
+  image: interaction/letsencrypt:master
+  environment:
+    - DOMAINS=example.com
+    - EMAIL=ploink@example.com
+    # - OPTIONS=--staging
+  expose:
+    - "80"
 
 webspoon:
   restart: always
   image: hiromuhota/webspoon:latest-full
+  environment:
+    - FORCE_SSL=yes
+    - VIRTUAL_HOST=*,https://*
+    - GZIP_COMPRESSION_TYPE="text/html text/plain text/css text/javascript"
   expose:
     - "8080"
-  ports:
-    - "8080:8080"  
   volumes:
     - "./repository:/repository/"
