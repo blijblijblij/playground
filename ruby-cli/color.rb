@@ -1,3 +1,5 @@
+#!/usr/bin/env ruby
+
 require 'rainbow'
 require 'rainbow/ext/string'
 
