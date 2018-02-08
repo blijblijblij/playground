@@ -1,0 +1,18 @@
+# frozen_string_literal: true
+require 'csv'
+require 'json'
+require 'kiba-common/sources/enumerable'
+require 'kiba-common/dsl_extensions/logger'
+extend Kiba::Common::DSLExtensions::Logger
+
+pre_process do
+  logger.info 'pre_process is running!'
+end
+
+class MyJsonSource
+  attr_reader :input_file
+
+  def initialize(input_file)
+    @input_file = input_file
+  end
+end

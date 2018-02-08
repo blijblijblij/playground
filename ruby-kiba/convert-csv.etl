@@ -1,0 +1,20 @@
+require 'awesome_print'
+require_relative 'common'
+
+# read from a french-formatted CSV file
+source CsvSource, 'commandes.csv', col_sep: ';', headers: true, header_converters: :symbol
+
+# verify required fields
+transform VerifyFieldsPresence, [:date_facture, :montant_eur, :numero_commande]
+
+# transform
+transform ParseFrenchDate, from: :date_facture, to: :invoice_date
+transform RenameField, from: :numero_commande, to: :invoice_number
+transform RenameField, from: :montant_eur, to: :amount_eur
+
+show_me!
+
+# write to csv
+output_fields = [:invoice_number, :invoice_date, :amount_eur]
+
+destination CsvDestination, 'orders.csv', output_fields
