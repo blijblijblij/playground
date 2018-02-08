@@ -1,0 +1,10 @@
+geminabox:
+  command: /opt/rubie/rackup.sh
+  restart: always
+  image: aventinesolutions/docker-geminabox:latest
+  ports:
+    - 9292:9292
+  environment:
+    - REGISTRY_HTTP_SECRET="bloeb"
+  volumes:
+    - "/data/dev/geminabox/:/data/"
